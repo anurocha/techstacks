@@ -1,0 +1,20 @@
+{
+  "name": "techstacks",
+  "homepage": "https://github.com/anurocha/techstacks",
+  "authors": [
+    "aro"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react-tagsinput": "^3.13.6"
+  }
+}
