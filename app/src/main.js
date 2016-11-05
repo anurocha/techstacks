@@ -5,46 +5,24 @@ document.getElementById('example')
 );
 
 
-var data = [
-  {id: 1, name: "EK", skills: ["c++","c#","javascript"]},
-  {id: 2, name: "FT", skills: ["c#","wpf"]},
-  {id: 3, name: "AS", skills: ["java","javascript","c#","go"]}
+var teamData = [
+  {TeamId: 1, TeamName: "EK", Skills: ["c++","c#","javascript"]},
+  {TeamId: 2, TeamName: "FT", Skills: ["c#","wpf"]},
+  {TeamId: 3, TeamName: "AS", Skills: ["java","javascript","c#","go"]}
 ];
 
-var getRequest = new Request('https://pbntn752kg.execute-api.us-west-2.amazonaws.com/prod/TechStacksMicroService?TableName=TeamTable', {
-    method: "GET",
-    mode: 'cors',
-    headers: {
-        'Content-Type': 'application/json',
-        'X-Api-Key' : 'vxgYTMjGxX9oKx1IMoCsC1WJ9byAAib62DjpVLY8'
-    }
-});
+class TeamBox extends React.Component {
+  constructor() {
+    super();
+    this.state = {TeamData: teamData}
+    this.getTeamData();
+  }
 
-fetch(getRequest)  
-  .then(  
-    function(response) {  
-      if (response.status !== 200) {  
-        console.log('Looks like there was a problem. Status Code: ' +  
-          response.status);
-        return;  
-      }
-
-      // Examine the text in the response  
-      response.json().then(function(data) {  
-        console.log(data);  
-      });  
-    }  
-  )  
-  .catch(function(err) {  
-    console.log('Fetch Error :-S', err);  
-  });
-
-var TeamBox = React.createClass({
-  render: function() {
-    var teamNodes = data.map(function(teamInfo) {
+  render(){
+    var teamNodes = teamData.map(function(teamInfo) {
       return (
-        <div key={teamInfo.id}>
-          {teamInfo.name} : <TeamSkillTags skills={teamInfo.skills}/>
+        <div key={teamInfo.TeamId}>
+          {teamInfo.TeamName} : <TeamSkillTags skills={teamInfo.Skills}/>
         </div>
       );
     });
@@ -54,17 +32,46 @@ var TeamBox = React.createClass({
       </div>
     );
   }
-});
 
-var TeamSkillTags = React.createClass({
-  render: function() {
+  getTeamData(){
+    var self = this;
+    var getRequest = new Request('https://pbntn752kg.execute-api.us-west-2.amazonaws.com/prod/TechStacksMicroService?TableName=TeamTable', {
+      method: "GET",
+      mode: 'cors',
+      headers: {
+          'Content-Type': 'application/json',
+          'X-Api-Key' : 'vxgYTMjGxX9oKx1IMoCsC1WJ9byAAib62DjpVLY8'
+      }
+    });
+
+    fetch(getRequest)  
+      .then((response) => {  
+          if (response.status !== 200) {  
+            console.log('Looks like there was a problem. Status Code: ' +  
+              response.status);
+            return;  
+          }
+          response.json().then( (data)=> {
+            teamData = data.Items;
+            self.setState({teamData});
+          });  
+        }  
+      )  
+      .catch(function(err) {  
+        console.log('Fetch Error :-S', err);  
+      });
+    }
+}
+
+class TeamSkillTags extends React.Component{
+  render(){
     return (
       <span className="teamSkillTags">
         <Tags data={this.props.skills}/>
       </span>
     );
   }
-});
+}
 
 class Tags extends React.Component {
   constructor(props) {
