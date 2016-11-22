@@ -4,12 +4,12 @@ ReactDOM.render(
   document.getElementById('example')
 );
 
-var getTeamRequest = new Request('https://ax2nrqdj3b.execute-api.us-west-2.amazonaws.com/prod/techstack?TableName=TeamTable', {
+var getTeamRequest = new Request('https://gtyhwdigg9.execute-api.us-west-2.amazonaws.com/prod/TechStacksMicroService?TableName=TSteam', {
     method: "GET",
     mode: 'cors',
     headers: {
         'Content-Type': 'application/json',
-        'X-Api-Key' : 'vxgYTMjGxX9oKx1IMoCsC1WJ9byAAib62DjpVLY8'
+        'X-Api-Key' : 'AXdaESDbtV6d0uqFZ8mFWaCs2axVDI7a5MujwZm7'
     }
 });
 
