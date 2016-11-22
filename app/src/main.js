@@ -35,12 +35,12 @@ class TeamBox extends React.Component {
 
   getTeamData(){
     var self = this;
-    var getRequest = new Request('https://pbntn752kg.execute-api.us-west-2.amazonaws.com/prod/TechStacksMicroService?TableName=TeamTable', {
+    var getRequest = new Request('https://gtyhwdigg9.execute-api.us-west-2.amazonaws.com/prod/TechStacksMicroService?TableName=TSteam', {
       method: "GET",
       mode: 'cors',
       headers: {
           'Content-Type': 'application/json',
-          'X-Api-Key' : 'vxgYTMjGxX9oKx1IMoCsC1WJ9byAAib62DjpVLY8'
+          'X-Api-Key' : 'AXdaESDbtV6d0uqFZ8mFWaCs2axVDI7a5MujwZm7'
       }
     });
 
