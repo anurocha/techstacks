@@ -1,7 +1,7 @@
 
 ReactDOM.render(
 <h1>Tech Stacks</h1>,
-document.getElementById('example')
+document.getElementById('title')
 );
 
 
@@ -92,26 +92,3 @@ ReactDOM.render(
   <TeamBox />,
   document.getElementById('content')
 );
-
-
-var BarChart = rd3.BarChart;
-
-var barData = [
-  {label: 'A', value: 5},
-  {label: 'B', value: 6},
-  {label: 'F', value: 7}
-];
-
-var Hello = React.createClass({
-    render: function() {
-        return <BarChart
-                  data={barData}
-                  width={500}
-                  height={200}
-                  fill={'#3182bd'}
-                  title='Bar Chart'
-                />;
-    }
-});
- 
-React.render(<Hello name="World" />, document.getElementById('chart'));
