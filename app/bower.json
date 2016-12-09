@@ -15,6 +15,11 @@
     "tests"
   ],
   "dependencies": {
-    "react-tagsinput": "^3.13.6"
+    "react-tagsinput": "^3.13.6",
+    "react-d3": "^0.2.2",
+    "d3": "^4.4.0"
+  },
+  "resolutions": {
+    "d3": "~3.5.5"
   }
 }
