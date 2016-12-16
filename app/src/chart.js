@@ -35,7 +35,7 @@ class SkillChart extends React.Component{
         return <PieChart
           data={pieData}
           width={400}
-          height={400}
+          height={250}
           radius={100}
           innerRadius={20}
           sectorBorderColor="white"
