@@ -28,9 +28,13 @@ var coloring = function(idx){
 class SkillChart extends React.Component{
     constructor(){
       super();
-      this.state = {PieData: pieData}
-      this.getSummaryData();
+      var datasvc = new DataService();
+      datasvc.getSummaryData((res)=>{
+         pieData = res;
+         this.setState({pieData});
+      });
     }
+
     render() {
         return <PieChart
           data={pieData}
@@ -42,34 +46,6 @@ class SkillChart extends React.Component{
           title="Skills Chart"
           colors={coloring}
         />;
-    }
-    getSummaryData() {
-      var self = this;
-      var getRequest = new Request('https://gtyhwdigg9.execute-api.us-west-2.amazonaws.com/prod/TechStacksMicroService?TableName=TSteam&Summary=true', {
-        method: "GET",
-        mode: 'cors',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-Api-Key' : 'AXdaESDbtV6d0uqFZ8mFWaCs2axVDI7a5MujwZm7'
-        }
-      });
-
-      fetch(getRequest)  
-        .then((response) => {  
-            if (response.status !== 200) {  
-              console.log('Looks like there was a problem. Status Code: ' +  
-                response.status);
-              return;  
-            }
-            response.json().then( (data)=> {
-              pieData = data.Items;
-              self.setState({pieData});
-            });  
-          }  
-        )  
-        .catch(function(err) {  
-          console.log('Fetch Error :-S', err);  
-        });
     }
 };
  

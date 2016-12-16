@@ -14,8 +14,11 @@ var teamData = [
 class TeamBox extends React.Component {
   constructor() {
     super();
-    this.state = {TeamData: teamData}
-    this.getTeamData();
+    var datasvc = new DataService();
+    datasvc.getTeamData((res)=>{
+      teamData = res;
+      this.setState({TeamData : res});
+    });
   }
 
   render(){
@@ -32,35 +35,6 @@ class TeamBox extends React.Component {
       </div>
     );
   }
-
-  getTeamData(){
-    var self = this;
-    var getRequest = new Request('https://gtyhwdigg9.execute-api.us-west-2.amazonaws.com/prod/TechStacksMicroService?TableName=TSteam', {
-      method: "GET",
-      mode: 'cors',
-      headers: {
-          'Content-Type': 'application/json',
-          'X-Api-Key' : 'AXdaESDbtV6d0uqFZ8mFWaCs2axVDI7a5MujwZm7'
-      }
-    });
-
-    fetch(getRequest)  
-      .then((response) => {  
-          if (response.status !== 200) {  
-            console.log('Looks like there was a problem. Status Code: ' +  
-              response.status);
-            return;  
-          }
-          response.json().then( (data)=> {
-            teamData = data.Items;
-            self.setState({teamData});
-          });  
-        }  
-      )  
-      .catch(function(err) {  
-        console.log('Fetch Error :-S', err);  
-      });
-    }
 }
 
 class TeamSkillTags extends React.Component{
