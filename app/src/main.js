@@ -28,7 +28,7 @@ class TeamBox extends React.Component {
       if(teamInfo.TeamId === this.state.EditingItemId){
         return (
           <div key={teamInfo.TeamId}>
-            <input type="text" value={teamInfo.TeamName} ref={input => input && input.focus()}></input> : <TeamSkillTags skills={teamInfo.Skills}/>
+            <input type="text" value={teamInfo.TeamName} ref={input => input && input.focus()} onBlur={(e)=>this.changeToSpan(e)}></input> : <TeamSkillTags skills={teamInfo.Skills}/>
           </div>
         );
       } 
@@ -50,6 +50,10 @@ class TeamBox extends React.Component {
 
   changeToInput(id){
     this.setState({EditingItemId : id});
+  }
+
+  changeToSpan(){
+    this.setState({EditingItemId : -1});
   }
 }
 
