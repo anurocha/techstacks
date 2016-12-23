@@ -19,21 +19,37 @@ class TeamBox extends React.Component {
       teamData = res;
       this.setState({TeamData : res});
     });
+
+    this.state = {EditingItemId : -1};
   }
 
   render(){
     var teamNodes = teamData.map(function(teamInfo) {
-      return (
-        <div key={teamInfo.TeamId}>
-          {teamInfo.TeamName} : <TeamSkillTags skills={teamInfo.Skills}/>
-        </div>
-      );
-    });
+      if(teamInfo.TeamId === this.state.EditingItemId){
+        return (
+          <div key={teamInfo.TeamId}>
+            <input type="text" value={teamInfo.TeamName} ref={input => input && input.focus()}></input> : <TeamSkillTags skills={teamInfo.Skills}/>
+          </div>
+        );
+      } 
+      else {
+        return (
+          <div key={teamInfo.TeamId}>
+            <span onClick={ (e)=>this.changeToInput(teamInfo.TeamId, e)}>{teamInfo.TeamName}</span> : <TeamSkillTags skills={teamInfo.Skills}/>
+          </div>
+        );
+      }
+
+    }, this);
     return (
       <div className="teamBoxes">
         {teamNodes}
       </div>
     );
+  }
+
+  changeToInput(id){
+    this.setState({EditingItemId : id});
   }
 }
 
