@@ -4,27 +4,21 @@ ReactDOM.render(
 document.getElementById('title')
 );
 
-
-var teamData = [
-  {TeamId: 1, TeamName: "EK", Skills: ["c++","c#","javascript"]},
-  {TeamId: 2, TeamName: "FT", Skills: ["c#","wpf"]},
-  {TeamId: 3, TeamName: "AS", Skills: ["java","javascript","c#","go"]}
-];
-
 class TeamBox extends React.Component {
   constructor() {
     super();
+    this.state = {EditingItemId : -1, TeamData : [] };
+  }
+
+  componentDidMount() {
     var datasvc = new DataService();
     datasvc.getTeamData((res)=>{
-      teamData = res;
       this.setState({TeamData : res});
     });
-
-    this.state = {EditingItemId : -1};
   }
 
   render(){
-    var teamNodes = teamData.map(function(teamInfo) {
+    var teamNodes = this.state.TeamData.map(function(teamInfo) {
       if(teamInfo.TeamId === this.state.EditingItemId){
         return (
           <div key={teamInfo.TeamId}>
