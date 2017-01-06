@@ -50,4 +50,4 @@ class SkillChart extends React.Component{
     }
 };
  
-ReactDOM.render(<SkillChart name="World" />, document.getElementById('chart'));
+// ReactDOM.render(<SkillChart name="World" />, document.getElementById('chart'));
