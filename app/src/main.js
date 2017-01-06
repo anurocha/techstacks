@@ -67,8 +67,10 @@ class Tags extends React.Component {
     this.state = {tags: props.data}
   }
  
-  handleChange(tags) {
-    this.setState({tags});
+  handleChange(newTags) {
+    console.log('old tags : ' + this.state.tags);
+    console.log('new tags : ' + newTags);
+    this.setState({tags : newTags});
   }
  
   render() {
