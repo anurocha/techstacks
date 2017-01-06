@@ -22,14 +22,14 @@ class TeamBox extends React.Component {
       if(teamInfo.TeamId === this.state.EditingItemId){
         return (
           <div key={teamInfo.TeamId}>
-            <input type="text" value={teamInfo.TeamName} ref={input => input && input.focus()} onBlur={(e)=>this.changeToSpan(e)}></input> : <TeamSkillTags skills={teamInfo.Skills}/>
+            <input type="text" value={teamInfo.TeamName} ref={input => input && input.focus()} onBlur={(e)=>this.changeToSpan(e)}></input> : <TeamSkillTags skills={teamInfo.Skills} teamId={teamInfo.TeamId}/>
           </div>
         );
       } 
       else {
         return (
           <div key={teamInfo.TeamId}>
-            <span onClick={ (e)=>this.changeToInput(teamInfo.TeamId, e)}>{teamInfo.TeamName}</span> : <TeamSkillTags skills={teamInfo.Skills}/>
+            <span onClick={ (e)=>this.changeToInput(teamInfo.TeamId, e)}>{teamInfo.TeamName}</span> : <TeamSkillTags skills={teamInfo.Skills} teamId={teamInfo.TeamId}/>
           </div>
         );
       }
@@ -55,7 +55,7 @@ class TeamSkillTags extends React.Component{
   render(){
     return (
       <span className="teamSkillTags">
-        <Tags data={this.props.skills}/>
+        <Tags data={this.props.skills} teamId={this.props.teamId}/>
       </span>
     );
   }
@@ -64,12 +64,20 @@ class TeamSkillTags extends React.Component{
 class Tags extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {tags: props.data}
+    this.state = {tags: props.data, teamId: props.teamId}
   }
  
   handleChange(newTags) {
+    var datasvc = new DataService();
+    datasvc.postTeamData({
+      "TableName": "TSteam",
+      "Item": {TeamId: this.state.teamId, skills: newTags}
+    }, (res)=>{
+      console.log(res);
+    });
     console.log('old tags : ' + this.state.tags);
     console.log('new tags : ' + newTags);
+    console.log('teamId : ' + this.state.teamId);
     this.setState({tags : newTags});
   }
  

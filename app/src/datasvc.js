@@ -1,25 +1,30 @@
  class DataService {
     constructor(){
-        console.log('data service has been craeted...')
+        console.log('data service has been created...')
     }
      
     getTeamData( callback ){
-        this.requestTo('https://gtyhwdigg9.execute-api.us-west-2.amazonaws.com/prod/TechStacksMicroService?TableName=TSteam', callback);
+        this.requestTo('https://gtyhwdigg9.execute-api.us-west-2.amazonaws.com/prod/TechStacksMicroService?TableName=TSteam', "GET", null, callback);
     }
 
     getSummaryData( callback ) {
-      this.requestTo('https://gtyhwdigg9.execute-api.us-west-2.amazonaws.com/prod/TechStacksMicroService?TableName=TSteam&Summary=true', callback);
+      this.requestTo('https://gtyhwdigg9.execute-api.us-west-2.amazonaws.com/prod/TechStacksMicroService?TableName=TSteam&Summary=true', "GET", null, callback);
     }
 
-    requestTo(url, callback){
+    postTeamData( data, callback ) {
+      this.requestTo('https://gtyhwdigg9.execute-api.us-west-2.amazonaws.com/prod/TechStacksMicroService', "POST", data, callback);
+    }
+
+    requestTo(url, method, data, callback){
       var self = this;
       var getRequest = new Request(url, {
-        method: "GET",
+        method: method,
         mode: 'cors',
         headers: {
             'Content-Type': 'application/json',
             'X-Api-Key' : 'AXdaESDbtV6d0uqFZ8mFWaCs2axVDI7a5MujwZm7'
-        }
+        },
+        body: data
       });
 
       fetch(getRequest)  
