@@ -17,24 +17,50 @@ export default class TeamBox extends React.Component {
       if(teamInfo.TeamId === this.state.EditingItemId){
         return (
           <div key={teamInfo.TeamId}>
-            <input type="text" value={teamInfo.TeamName} ref={input => input && input.focus()} onBlur={(e)=>this.changeToSpan(e)}></input> : <TeamSkillTags skills={teamInfo.Skills}/>
+            <input type="text" value={teamInfo.TeamName} ref={input => input && input.focus()} onBlur={(e)=>this.changeToSpan(e)} onChange={(e)=>this.changeTeamHandler(e)}></input> : <br/><TeamSkillTags skills={teamInfo.Skills}/>
           </div>
         );
       } 
       else {
         return (
           <div key={teamInfo.TeamId}>
-            <span onClick={ (e)=>this.changeToInput(teamInfo.TeamId, e)}>{teamInfo.TeamName}</span> : <TeamSkillTags skills={teamInfo.Skills}/>
+            <span onClick={ (e)=>this.changeToInput(teamInfo.TeamId, e)}>{teamInfo.TeamName}</span> : <br/><TeamSkillTags skills={teamInfo.Skills}/>
           </div>
         );
       }
 
     }, this);
+
+
+    const plusButtonStyle = {
+        position: 'absolute',
+        right : '4px',
+        width : '48px'
+    }; 
     return (
       <div className="teamBoxes">
         {teamNodes}
+        <br/>
+        <img src='./img/plusbutton.png' onClick={ (e)=>this.addNewTeam(e)} style={plusButtonStyle}></img>
       </div>
     );
+  }
+
+  addNewTeam(id){
+      this.state.TeamData.push({'TeamName' : 'New Team', 'Skills' : [], 'TeamId' : this.state.TeamData.length + 1});
+      this.forceUpdate();
+  }
+
+  changeTeamHandler(event){
+      console.log('new input : ' + event.target.value);
+      var t = this;
+      var teamNodes = this.state.TeamData.map(function(teamInfo) {
+      if(teamInfo.TeamId === t.state.EditingItemId){
+          teamInfo.TeamName =  event.target.value;
+          t.forceUpdate();
+          return;
+        }
+      });
   }
 
   changeToInput(id){

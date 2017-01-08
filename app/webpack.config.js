@@ -1,8 +1,7 @@
 module.exports = {
   entry: ['./src/main.js',
             './src/chart.js',
-            './src/teamlist.js',
-            './src/datasvc.js'
+            './src/teamlist.js'
              ],
   output: {
       path : 'dist',
