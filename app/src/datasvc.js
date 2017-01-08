@@ -1,4 +1,4 @@
- class DataService {
+class DataService {
     constructor(){
         console.log('data service has been craeted...')
     }

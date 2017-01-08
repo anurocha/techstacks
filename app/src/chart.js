@@ -1,3 +1,4 @@
+
 var PieChart = rd3.PieChart;
 
 var pieData = [
@@ -25,7 +26,7 @@ var coloring = function(idx){
   return d3.rgb(colorCode);
 }
 
-class SkillChart extends React.Component{
+export default class SkillChart extends React.Component{
     constructor(){
       super();
       var datasvc = new DataService();
@@ -49,5 +50,3 @@ class SkillChart extends React.Component{
         />;
     }
 };
- 
-// ReactDOM.render(<SkillChart name="World" />, document.getElementById('chart'));
