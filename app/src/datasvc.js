@@ -16,18 +16,23 @@
     }
 
     requestTo(url, method, data, callback){
-      var self = this;
-      var getRequest = new Request(url, {
+
+      if(method=="POST") {
+        var formData = new FormData( JSON.stringify(data) );
+        //formData.append( "json", JSON.stringify( data ) );
+      }
+
+      var request = new Request(url, {
         method: method,
         mode: 'cors',
         headers: {
             'Content-Type': 'application/json',
             'X-Api-Key' : 'AXdaESDbtV6d0uqFZ8mFWaCs2axVDI7a5MujwZm7'
         },
-        body: data
+        body: formData
       });
 
-      fetch(getRequest)  
+      fetch(request)  
         .then((response) => {  
             if (response.status !== 200) {  
               console.log('Looks like there was a problem. Status Code: ' +  

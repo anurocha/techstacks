@@ -71,7 +71,7 @@ class Tags extends React.Component {
     var datasvc = new DataService();
     datasvc.postTeamData({
       "TableName": "TSteam",
-      "Item": {TeamId: this.state.teamId, skills: newTags}
+      "Item": {TeamId: this.state.teamId, Skills: newTags}
     }, (res)=>{
       console.log(res);
     });
