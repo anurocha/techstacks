@@ -22,14 +22,14 @@ class TeamBox extends React.Component {
       if(teamInfo.TeamId === this.state.EditingItemId){
         return (
           <div key={teamInfo.TeamId}>
-            <input type="text" value={teamInfo.TeamName} ref={input => input && input.focus()} onBlur={(e)=>this.changeToSpan(e)}></input> : <TeamSkillTags skills={teamInfo.Skills} teamId={teamInfo.TeamId}/>
+            <input type="text" value={teamInfo.TeamName} ref={input => input && input.focus()} onBlur={(e)=>this.changeToSpan(e)}></input> : <TeamSkillTags TeamData={teamInfo}/>
           </div>
         );
       } 
       else {
         return (
           <div key={teamInfo.TeamId}>
-            <span onClick={ (e)=>this.changeToInput(teamInfo.TeamId, e)}>{teamInfo.TeamName}</span> : <TeamSkillTags skills={teamInfo.Skills} teamId={teamInfo.TeamId}/>
+            <span onClick={ (e)=>this.changeToInput(teamInfo.TeamId, e)}>{teamInfo.TeamName}</span> : <TeamSkillTags TeamData={teamInfo}/>
           </div>
         );
       }
@@ -55,7 +55,7 @@ class TeamSkillTags extends React.Component{
   render(){
     return (
       <span className="teamSkillTags">
-        <Tags data={this.props.skills} teamId={this.props.teamId}/>
+        <Tags data={this.props.TeamData}/>
       </span>
     );
   }
@@ -64,20 +64,21 @@ class TeamSkillTags extends React.Component{
 class Tags extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {tags: props.data, teamId: props.teamId}
+    this.state = {tags: props.data.Skills, TeamId: props.data.TeamId, TeamName: props.data.TeamName}
   }
  
   handleChange(newTags) {
     var datasvc = new DataService();
     datasvc.postTeamData({
       "TableName": "TSteam",
-      "Item": {TeamId: this.state.teamId, Skills: newTags}
+      "Item": {"TeamId": this.state.TeamId, "TeamName": this.state.TeamName, "Skills": newTags}
     }, (res)=>{
       console.log(res);
     });
     console.log('old tags : ' + this.state.tags);
     console.log('new tags : ' + newTags);
-    console.log('teamId : ' + this.state.teamId);
+    console.log('teamId : ' + this.state.TeamId);
+    console.log('teamName : ' + this.state.TeamName);
     this.setState({tags : newTags});
   }
  

@@ -16,11 +16,8 @@
     }
 
     requestTo(url, method, data, callback){
-
-      if(method=="POST") {
-        var formData = new FormData( JSON.stringify(data) );
-        //formData.append( "json", JSON.stringify( data ) );
-      }
+      if(method=="POST")
+        data = JSON.stringify(data);
 
       var request = new Request(url, {
         method: method,
@@ -29,7 +26,7 @@
             'Content-Type': 'application/json',
             'X-Api-Key' : 'AXdaESDbtV6d0uqFZ8mFWaCs2axVDI7a5MujwZm7'
         },
-        body: formData
+        body: data
       });
 
       fetch(request)  
