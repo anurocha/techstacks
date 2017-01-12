@@ -194,7 +194,7 @@
 	              } }),
 	            ' : ',
 	            React.createElement('br', null),
-	            React.createElement(TeamSkillTags, { skills: teamInfo.Skills })
+	            React.createElement(TeamSkillTags, { TeamData: teamInfo })
 	          );
 	        } else {
 	          return React.createElement(
@@ -209,7 +209,7 @@
 	            ),
 	            ' : ',
 	            React.createElement('br', null),
-	            React.createElement(TeamSkillTags, { skills: teamInfo.Skills })
+	            React.createElement(TeamSkillTags, { TeamData: teamInfo })
 	          );
 	        }
 	      }, this);
@@ -280,7 +280,7 @@
 	      return React.createElement(
 	        'span',
 	        { className: 'teamSkillTags' },
-	        React.createElement(Tags, { data: this.props.skills })
+	        React.createElement(Tags, { data: this.props.TeamData })
 	      );
 	    }
 	  }]);
@@ -296,15 +296,24 @@
 
 	    var _this6 = _possibleConstructorReturn(this, (Tags.__proto__ || Object.getPrototypeOf(Tags)).call(this, props));
 
-	    _this6.state = { tags: props.data };
+	    _this6.state = { tags: props.data.Skills, TeamId: props.data.TeamId, TeamName: props.data.TeamName };
 	    return _this6;
 	  }
 
 	  _createClass(Tags, [{
 	    key: 'handleChange',
 	    value: function handleChange(newTags) {
+	      var datasvc = new DataService();
+	      datasvc.postTeamData({
+	        "TableName": "TSteam",
+	        "Item": { "TeamId": this.state.TeamId, "TeamName": this.state.TeamName, "Skills": newTags }
+	      }, function (res) {
+	        console.log(res);
+	      });
 	      console.log('old tags : ' + this.state.tags);
 	      console.log('new tags : ' + newTags);
+	      console.log('teamId : ' + this.state.TeamId);
+	      console.log('teamName : ' + this.state.TeamName);
 	      this.setState({ tags: newTags });
 	    }
 	  }, {
