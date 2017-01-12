@@ -68,6 +68,18 @@ export default class TeamBox extends React.Component {
   }
 
   changeToSpan(){
+    var t = this;
+    var teamNodes = this.state.TeamData.map(function(teamInfo) {
+    if(teamInfo.TeamId === t.state.EditingItemId){
+        var datasvc = new DataService();
+        datasvc.postTeamData({
+          "TableName": "TSteam",
+          "Item": {"TeamId": teamInfo.TeamId, "TeamName": teamInfo.TeamName, "Skills": teamInfo.Skills}
+        }, (res)=>{
+          console.log(res);
+        });
+      }
+    });
     this.setState({EditingItemId : -1});
   }
 }
