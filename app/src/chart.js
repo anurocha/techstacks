@@ -15,11 +15,27 @@ var coloring = function(idx){
   {
     case 0: colorCode = "#111111";
       break;
-    case 1: colorCode = "#333333";
+    case 1: colorCode = "#222222";
       break;  
-    case 2: colorCode = "#555555";
+    case 2: colorCode = "#333333";
       break;  
-    case 3: colorCode = "#777777";
+    case 3: colorCode = "#444444";
+      break;  
+    case 4: colorCode = "#555555";
+      break;  
+    case 5: colorCode = "#666666";
+      break;  
+    case 6: colorCode = "#777777";
+      break;  
+    case 7: colorCode = "#888888";
+      break;  
+    case 8: colorCode = "#999999";
+      break;  
+    case 9: colorCode = "#aaaaaa";
+      break;  
+    case 10: colorCode = "#bbbbbb";
+      break;  
+    case 11: colorCode = "#cccccc";
       break;  
   
   }
